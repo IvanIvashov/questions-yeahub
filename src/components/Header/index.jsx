@@ -1,5 +1,6 @@
 import styles from "./header.module.css";
 import imgLogo from "./img/logo.svg";
+import { NAVIGATION_ITEMS } from "../../Constants/constants";
 
 function Header() {
   return (
@@ -9,26 +10,13 @@ function Header() {
           <img className={styles.logo} src={imgLogo} alt="logo" />
           <nav className={styles.nav}>
             <ul className={styles.nav__list}>
-              <li className={styles.item__list}>
-                <a className={styles.nav__link} href="#">
-                  База вопросов
-                </a>
-              </li>
-              <li className={styles.item__list}>
-                <a className={styles.nav__link} href="#">
-                  Тренажер
-                </a>
-              </li>
-              <li className={styles.item__list}>
-                <a className={styles.nav__link} href="#">
-                  Материалы
-                </a>
-              </li>
-              <li className={styles.item__list}>
-                <a className={styles.nav__link} href="#">
-                  Навыки (hh)
-                </a>
-              </li>
+              {NAVIGATION_ITEMS.map((title, index) => (
+                <li key={`${title}-${index}`} className={styles.item__list}>
+                  <a className={styles.nav__link} href="#">
+                    {title}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
