@@ -1,10 +1,6 @@
 import styles from "./footer.module.css";
 import icon from "./img/yeahub.svg";
-import telegram from "./img/Telegram.svg";
-import youtube from "./img/Youtube.svg";
-import tiktok from "./img/tiktok.svg";
-import figma from "./img/Figma.svg";
-import github from "./img/Github.svg";
+import { SOCIAL_ICON } from "../../Constants/constants";
 
 function Footer() {
   return (
@@ -34,21 +30,11 @@ function Footer() {
               Ищите нас и в других соцсетях @yeahub_tt
             </p>
             <div className={styles.links}>
-              <a href="#">
-                <img src={figma} alt="Фигма" />
-              </a>
-              <a href="#">
-                <img src={telegram} alt="Телеграмм" />
-              </a>
-              <a href="#">
-                <img src={youtube} alt="Ютуб" />
-              </a>
-              <a href="#">
-                <img src={tiktok} alt="Тикток" />
-              </a>
-              <a href="#">
-                <img src={github} alt="Гитхаб" />
-              </a>
+              {SOCIAL_ICON.map((item) => (
+                <a key={item.id} href="#">
+                  <img src={item.iconSrc} alt={item.title} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
