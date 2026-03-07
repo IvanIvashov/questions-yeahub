@@ -2,30 +2,22 @@ import CategoryBlock from "../CategoryBlock";
 import Search from "../Search/Search";
 import styles from "./sidebar.module.css";
 import imgFigma from "../CategoryBlock/img/icon1.svg";
+import { SPECIALIZATION } from "../../Constants/constants";
+import { SKILLS } from "../../Constants/constants";
+import { LEVEL } from "../../Constants/constants";
+import { RATING } from "../../Constants/constants";
+import { STATUS } from "../../Constants/constants";
 
 function SideBar() {
-  const specialization = [
-    "UI/UX designe",
-    "Frontend developer",
-    "Backed developer",
-    "Fullstack",
-    "Figma",
-  ];
-
-  const skills = ["Figma", "CSS", "React", "HTML"];
-  const level = ["1-3", "4-6", "7-8", "9-10"];
-  const rating = ["1", "2", "3", "4", "5"];
-  const status = ["Изученные", "Неизученные", "Все"];
-
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebar__content}>
         <Search />
-        <CategoryBlock title="Специализация" arr={specialization} showAll />
-        <CategoryBlock title="Навыки" arr={skills} icon={imgFigma} showAll />
-        <CategoryBlock title="Уровень сложности" arr={level} />
-        <CategoryBlock title="Рейтинг" arr={rating} />
-        <CategoryBlock title="Статус" arr={status} />
+        <CategoryBlock title="Специализация" arr={SPECIALIZATION} showAll />
+        <CategoryBlock title="Навыки" arr={SKILLS} icon={imgFigma} showAll />
+        <CategoryBlock title="Уровень сложности" arr={LEVEL} />
+        <CategoryBlock title="Рейтинг" arr={RATING} />
+        <CategoryBlock title="Статус" arr={STATUS} />
       </div>
     </div>
   );
