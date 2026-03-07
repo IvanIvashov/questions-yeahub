@@ -1,4 +1,4 @@
-import QuestionList from "../QuestionList/QuestionList";
+import QuestionItem from "../QuestionItem/QuestionItem";
 import styles from "./content.module.css";
 
 function Content() {
@@ -9,16 +9,16 @@ function Content() {
           <div className={styles.title__text}>
             <h1>Вопросы React, JavaScript</h1>
           </div>
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
-          <QuestionList />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
+          <QuestionItem />
         </div>
         <div className={styles.pagination}>
           <h1 className={styles.textPag}>Тут будет пагинация</h1>

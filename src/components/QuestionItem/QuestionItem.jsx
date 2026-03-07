@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import styles from "./questionList.module.css";
+import styles from "./questionItem.module.css";
 
-import circle from "../QuestionList/img/circle.svg";
-import arrowDown from "../QuestionList/img/arrowDown.svg";
-import close from "../QuestionList/img/close.svg";
-import answerImg from "../QuestionList/img/answerImg.jpg";
+import circle from "../QuestionItem/img/circle.svg";
+import arrowDown from "../QuestionItem/img/arrowDown.svg";
+import close from "../QuestionItem/img/close.svg";
+import answerImg from "../QuestionItem/img/answerImg.jpg";
 
-function QuestionList() {
+function QuestionItem() {
   const [isOpen, setIsOpen] = useState(false);
   const [getQuestions, setGetQuestions] = useState([]);
 
@@ -88,4 +88,4 @@ function QuestionList() {
   );
 }
 
-export default QuestionList;
+export default QuestionItem;

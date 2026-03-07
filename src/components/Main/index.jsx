@@ -5,12 +5,10 @@ import SideBar from "../SideBar/SideBar";
 
 function Main() {
   return (
-    <>
-      <div className={styles.container}>
-        <Content />
-        <SideBar />
-      </div>
-    </>
+    <div className={styles.container}>
+      <Content />
+      <SideBar />
+    </div>
   );
 }
 
