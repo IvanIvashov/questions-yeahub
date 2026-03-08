@@ -1,15 +1,13 @@
 import { useState } from "react";
 import styles from "./search.module.css";
 
+import closeBtn from "./closeBtn.svg";
 import search from "./search.svg";
 
-function Search() {
-  const [searchValue, setSearchValue] = useState("");
-
+function Search({ searchValue, setSearchValue }) {
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      alert("Поиск начался");
       setSearchValue("");
     }
   }
@@ -27,6 +25,14 @@ function Search() {
         onChange={(e) => setSearchValue(e.target.value)}
         onKeyDown={handleKeyDown}
       />
+      {searchValue && (
+        <img
+          className={styles.closeButton}
+          src={closeBtn}
+          alt=""
+          onClick={() => setSearchValue("")}
+        />
+      )}
     </div>
   );
 }

@@ -10,7 +10,6 @@ function Skills() {
         const res = await fetch(
           "https://api.yeatwork.ru/skills?page=1&limit=10",
         );
-        console.log(res);
         if (!res.ok) {
           throw new Error(`Ошибка HTTP: ${res.status}`);
         }

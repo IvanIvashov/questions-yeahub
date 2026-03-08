@@ -4,7 +4,7 @@ import styles from "./content.module.css";
 
 import Error from "../Error/index.jsx";
 
-function Content() {
+function Content({ searchValue }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +19,7 @@ function Content() {
       setError(null);
       try {
         const res = await fetch(
-          "https://api.yeatwork.ru/questions/public-questions?page=1&limit=10",
+          `https://api.yeatwork.ru/questions/public-questions?page=1&limit=10${search}`,
         );
 
         if (!res.ok) {
@@ -53,13 +53,27 @@ function Content() {
             {loading ? (
               <div className={styles.loading}>Загрузка вопросов...</div>
             ) : (
-              questions.map((question) => (
-                <QuestionItem
-                  key={question.id}
-                  question={question}
-                  img={false}
-                />
-              ))
+              <>
+                {questions.filter((obj) =>
+                  obj.title.toLowerCase().includes(searchValue.toLowerCase()),
+                ).length === 0 ? (
+                  <div className={styles.notFound}>Ничего не найдено</div>
+                ) : (
+                  questions
+                    .filter((obj) =>
+                      obj.title
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase()),
+                    )
+                    .map((question) => (
+                      <QuestionItem
+                        key={question.id}
+                        question={question}
+                        img={false}
+                      />
+                    ))
+                )}
+              </>
             )}
           </div>
 

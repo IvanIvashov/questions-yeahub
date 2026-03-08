@@ -22,7 +22,14 @@ function FilterGroup({ title, items }) {
           <li key={item.id} className={styles.category__item}>
             <button className={styles.btn__item}>
               {item.imageSrc && (
-                <img className={styles.btn__icon} src="" alt="" />
+                <img
+                  className={styles.btn__icon}
+                  src={item.imageSrc}
+                  alt=""
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
               )}
               {item.title}
             </button>

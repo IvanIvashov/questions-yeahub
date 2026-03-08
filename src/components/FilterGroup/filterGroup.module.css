@@ -13,6 +13,16 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 14px;
+  width: 100%;
+  max-width: 344px;
+  padding: 0;
+  list-style: none;
+}
+
+.category__item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .btn__item {
@@ -26,9 +36,14 @@
   line-height: 1.2;
   color: #303030;
   white-space: nowrap;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
 
   &:hover {
     border-color: #6a0bff;
+    background-color: #6a0bff;
+    color: #fff;
   }
 }
 
@@ -38,4 +53,21 @@
   display: inline-block;
   border-bottom: 1px solid #5509cc;
   color: #5509cc;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #5509cc;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btn__icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 6px;
+  vertical-align: middle;
+  object-fit: contain;
 }
