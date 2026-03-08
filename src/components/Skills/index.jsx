@@ -8,7 +8,7 @@ function Skills() {
     async function fetchSkills() {
       try {
         const res = await fetch(
-          "https://api.yeatwork.ru/skills?page=1&limit=5",
+          "https://api.yeatwork.ru/skills?page=1&limit=10",
         );
         console.log(res);
         if (!res.ok) {

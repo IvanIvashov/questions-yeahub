@@ -8,7 +8,7 @@ function Specializations() {
     async function fetchSpecializations() {
       try {
         const res = await fetch(
-          "https://api.yeatwork.ru/specializations?page=1&limit=5",
+          "https://api.yeatwork.ru/specializations?page=1&limit=10",
         );
         if (!res.ok) {
           throw new Error(`Ошибка HTTP: ${res.status}`);

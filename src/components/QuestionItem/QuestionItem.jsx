@@ -4,7 +4,6 @@ import styles from "./questionItem.module.css";
 import circle from "../QuestionItem/img/circle.svg";
 import arrowDown from "../QuestionItem/img/arrowDown.svg";
 import close from "../QuestionItem/img/close.svg";
-import answerImg from "../QuestionItem/img/answerImg.jpg";
 
 function QuestionItem({ question, img }) {
   const [isOpen, setIsOpen] = useState(false);
