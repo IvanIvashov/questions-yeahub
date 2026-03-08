@@ -11,14 +11,6 @@ export const NAVIGATION_ITEMS = [
   "Навыки (hh)",
 ];
 
-export const SPECIALIZATION = [
-  "UI/UX designe",
-  "Frontend developer",
-  "Backed developer",
-  "Fullstack",
-  "Figma",
-];
-
 export const SKILLS = ["Figma", "CSS", "React", "HTML"];
 export const LEVEL = ["1-3", "4-6", "7-8", "9-10"];
 export const RATING = ["1", "2", "3", "4", "5"];
