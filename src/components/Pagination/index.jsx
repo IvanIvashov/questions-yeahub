@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
 import styles from "./pagination.module.css";
 
-function Pagination() {
+function Pagination({ onPageChange }) {
   return (
     <ReactPaginate
       containerClassName={styles.pagination}
@@ -43,8 +43,8 @@ function Pagination() {
           />
         </svg>
       }
-      onPageChange={(event) => console.log(event)}
-      pageRangeDisplayed={6}
+      onPageChange={(event) => onPageChange(event.selected + 1)}
+      pageRangeDisplayed={3}
       marginPagesDisplayed={1}
       pageCount={24}
       previousLabel={

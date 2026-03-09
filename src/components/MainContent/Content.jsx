@@ -8,6 +8,7 @@ function Content({ searchValue }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const closeError = () => {
     setError(null);
@@ -19,7 +20,7 @@ function Content({ searchValue }) {
       setError(null);
       try {
         const res = await fetch(
-          `https://api.yeatwork.ru/questions/public-questions?page=1&limit=10$`,
+          `https://api.yeatwork.ru/questions/public-questions?page=${currentPage}&limit=10$`,
         );
 
         if (!res.ok) {
@@ -37,7 +38,7 @@ function Content({ searchValue }) {
     }
 
     fetchQuestions();
-  }, []);
+  }, [currentPage]);
 
   return (
     <>
@@ -68,7 +69,7 @@ function Content({ searchValue }) {
           </div>
 
           <div className={styles.pagination}>
-            <Pagination />
+            <Pagination onPageChange={(num) => setCurrentPage(num)} />
           </div>
         </div>
       </div>
