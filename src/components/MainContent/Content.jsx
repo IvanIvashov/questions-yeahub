@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import QuestionItem from "../QuestionItem/QuestionItem";
 import styles from "./content.module.css";
-
 import Error from "../Error/index.jsx";
+import Pagination from "../Pagination/index.jsx";
 
 function Content({ searchValue }) {
   const [questions, setQuestions] = useState([]);
@@ -19,7 +19,7 @@ function Content({ searchValue }) {
       setError(null);
       try {
         const res = await fetch(
-          `https://api.yeatwork.ru/questions/public-questions?page=1&limit=10${search}`,
+          `https://api.yeatwork.ru/questions/public-questions?page=1&limit=10$`,
         );
 
         if (!res.ok) {
@@ -53,32 +53,22 @@ function Content({ searchValue }) {
             {loading ? (
               <div className={styles.loading}>Загрузка вопросов...</div>
             ) : (
-              <>
-                {questions.filter((obj) =>
+              questions
+                .filter((obj) =>
                   obj.title.toLowerCase().includes(searchValue.toLowerCase()),
-                ).length === 0 ? (
-                  <div className={styles.notFound}>Ничего не найдено</div>
-                ) : (
-                  questions
-                    .filter((obj) =>
-                      obj.title
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase()),
-                    )
-                    .map((question) => (
-                      <QuestionItem
-                        key={question.id}
-                        question={question}
-                        img={false}
-                      />
-                    ))
-                )}
-              </>
+                )
+                .map((question) => (
+                  <QuestionItem
+                    key={question.id}
+                    question={question}
+                    img={false}
+                  />
+                ))
             )}
           </div>
 
           <div className={styles.pagination}>
-            <h1 className={styles.textPag}>Тут будет пагинация</h1>
+            <Pagination />
           </div>
         </div>
       </div>

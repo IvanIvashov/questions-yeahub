@@ -5,12 +5,6 @@ import closeBtn from "./closeBtn.svg";
 import search from "./search.svg";
 
 function Search({ searchValue, setSearchValue }) {
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      setSearchValue("");
-    }
-  }
   return (
     <div className={styles.search}>
       <label htmlFor="search">
@@ -23,7 +17,6 @@ function Search({ searchValue, setSearchValue }) {
         className={styles.input}
         placeholder="Введите запрос..."
         onChange={(e) => setSearchValue(e.target.value)}
-        onKeyDown={handleKeyDown}
       />
       {searchValue && (
         <img

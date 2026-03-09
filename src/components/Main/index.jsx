@@ -8,7 +8,7 @@ function Main() {
   const [searchValue, setSearchValue] = useState("");
   return (
     <div className={styles.container}>
-      <Content searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Content searchValue={searchValue} />
       <SideBar searchValue={searchValue} setSearchValue={setSearchValue} />
     </div>
   );

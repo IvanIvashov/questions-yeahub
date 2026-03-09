@@ -11,7 +11,7 @@ function Specializations() {
           "https://api.yeatwork.ru/specializations?page=1&limit=10",
         );
         if (!res.ok) {
-          throw new Error(`Ошибка HTTP: ${res.status}`);
+          throw new Error(`Ошибка HTTP: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
         setGetSpecializations(data.data);
