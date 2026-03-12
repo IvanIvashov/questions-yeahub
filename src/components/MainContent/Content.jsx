@@ -28,6 +28,7 @@ function Content({ searchValue }) {
         }
 
         const data = await res.json();
+        console.log("Ответ от API:", data);
         setQuestions(data.data);
       } catch (err) {
         setError(err.message);

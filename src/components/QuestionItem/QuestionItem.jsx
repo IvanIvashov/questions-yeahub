@@ -53,7 +53,7 @@ function QuestionItem({ question, img }) {
             )}
 
             <p className={styles.desc}>
-              {question.longAnswer ||
+              {question.shortAnswer ||
                 question.description ||
                 "Описание отсутствует"}
             </p>
