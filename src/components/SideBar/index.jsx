@@ -3,8 +3,8 @@ import styles from "./sidebar.module.css";
 import Specializations from "../Specialization";
 import Skills from "../Skills";
 import DifficultyLevel from "../DifficultyLevel";
-import Rating from "../Rating";
-import Status from "../Status";
+import FilterSection from "../FilterSection";
+import { RATING, STATUS } from "../../Constants/constants";
 
 function SideBar({ searchValue, setSearchValue }) {
   return (
@@ -14,8 +14,8 @@ function SideBar({ searchValue, setSearchValue }) {
         <Specializations />
         <Skills />
         <DifficultyLevel />
-        <Rating />
-        <Status />
+        <FilterSection title="Рейтинг" itemsArr={RATING} baseId="rating" />
+        <FilterSection title="Статус" itemsArr={STATUS} baseId="status" />
       </div>
     </div>
   );
