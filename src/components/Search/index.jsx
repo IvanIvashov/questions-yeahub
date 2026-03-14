@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./search.module.css";
 
 import closeBtn from "./closeBtn.svg";
