@@ -43,15 +43,23 @@ function Content({ searchValue }) {
   const filteredQuestions = allQuestions.filter((q) =>
     q.title.toLowerCase().includes(searchValue.toLowerCase()),
   );
-  const startPage = (currentPage - 1) * itemPage;
+
+  const validCurrentPage = searchValue ? 1 : currentPage;
+  const startPage = (validCurrentPage - 1) * itemPage;
   const paginationQuestions = filteredQuestions.slice(
     startPage,
     startPage + itemPage,
   );
+
   const totalPages = Math.ceil(filteredQuestions.length / itemPage);
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchValue]);
+
+  const handlePageChange = (newPage) => {
+    if (!searchValue) {
+      setCurrentPage(newPage);
+    } else {
+      setCurrentPage(1);
+    }
+  };
 
   return (
     <>
@@ -81,7 +89,11 @@ function Content({ searchValue }) {
           )}
           {totalPages > 1 && (
             <div className={styles.pagination}>
-              <Pagination onPageChange={(num) => setCurrentPage(num)} />
+              <Pagination
+                onPageChange={handlePageChange}
+                currentPage={validCurrentPage}
+                totalPages={totalPages}
+              />
             </div>
           )}
         </div>

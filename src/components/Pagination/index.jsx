@@ -3,7 +3,7 @@ import styles from "./pagination.module.css";
 import ArrowLeft from "../ArrowLeft";
 import ArrowRight from "../ArrowRight";
 
-function Pagination({ onPageChange }) {
+function Pagination({ onPageChange, currentPage, totalPages }) {
   return (
     <ReactPaginate
       containerClassName={styles.pagination}
@@ -33,7 +33,8 @@ function Pagination({ onPageChange }) {
       onPageChange={(event) => onPageChange(event.selected + 1)}
       pageRangeDisplayed={3}
       marginPagesDisplayed={1}
-      pageCount={24}
+      pageCount={totalPages}
+      forcePage={currentPage - 1}
       previousLabel={<ArrowLeft />}
       renderOnZeroPageCount={null}
     />

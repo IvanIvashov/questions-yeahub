@@ -44,6 +44,10 @@
   width: 28px;
   height: 28px;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(128, 125, 125, 0.1);
+  }
 }
 
 .breakLink {

@@ -15,7 +15,6 @@ function Skills() {
         }
         const data = await res.json();
         setGetSkills(data.data);
-        console.log(data.data);
       } catch (err) {
         console.log(err);
       }
