@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../helpers/hooks/useDebounce.js";
 import QuestionItem from "../QuestionItem/QuestionItem";
 import styles from "./content.module.css";
@@ -15,9 +15,9 @@ function Content({ searchValue }) {
   const itemPage = 10;
   const debouncedSearch = useDebounce(searchValue, 800);
 
-  const closeError = () => {
+  const closeError = useCallback(() => {
     setError(null);
-  };
+  }, []);
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -34,8 +34,6 @@ function Content({ searchValue }) {
           throw new Error(`Ошибка HTTP: ${res.status}`);
         }
         const data = await res.json();
-        console.log(data.data);
-
         setAllQuestions(data.data);
         setTotalPages(Math.ceil(data.total / itemPage));
       } catch (err) {
@@ -53,10 +51,17 @@ function Content({ searchValue }) {
     setCurrentPage(1);
   }, [debouncedSearch]);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
-  };
+  }, []);
 
+  const questionList = useMemo(
+    () =>
+      allQuestions.map((question) => (
+        <QuestionItem key={question.id} question={question} img={false} />
+      )),
+    [allQuestions],
+  );
   return (
     <>
       {error && <Error closeError={closeError} error={error} />}
@@ -71,26 +76,21 @@ function Content({ searchValue }) {
             {loading ? (
               <div className={styles.loading}>Загрузка вопросов...</div>
             ) : (
-              allQuestions.map((question) => (
-                <QuestionItem
-                  key={question.id}
-                  question={question}
-                  img={false}
-                />
-              ))
+              questionList
             )}
           </div>
           {!loading && allQuestions.length === 0 && (
             <div>По запросу '{searchValue}' ничего не найдено!</div>
           )}
-
-          <div className={styles.pagination}>
-            <Pagination
-              onPageChange={handlePageChange}
-              currentPage={currentPage}
-              totalPages={totalPages}
-            />
-          </div>
+          {totalPages > 1 && (
+            <div className={styles.pagination}>
+              <Pagination
+                onPageChange={handlePageChange}
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
