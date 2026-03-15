@@ -19,6 +19,8 @@ function Content({ searchValue }) {
     setError(null);
   }, []);
 
+  const validCurrentPage = debouncedSearch ? 1 : currentPage;
+
   useEffect(() => {
     async function fetchQuestions() {
       setLoading(true);
@@ -27,7 +29,7 @@ function Content({ searchValue }) {
         const searchParam = debouncedSearch
           ? `&titleOrDescription=${encodeURIComponent(debouncedSearch)}`
           : "";
-        const url = `https://api.yeatwork.ru/questions/public-questions?page=${currentPage}&limit=${itemPage}${searchParam}`;
+        const url = `https://api.yeatwork.ru/questions/public-questions?page=${validCurrentPage}&limit=${itemPage}${searchParam}`;
         const res = await fetch(url);
 
         if (!res.ok) {
@@ -45,11 +47,7 @@ function Content({ searchValue }) {
     }
 
     fetchQuestions();
-  }, [currentPage, debouncedSearch]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [debouncedSearch]);
+  }, [validCurrentPage, debouncedSearch]);
 
   const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
@@ -86,7 +84,7 @@ function Content({ searchValue }) {
             <div className={styles.pagination}>
               <Pagination
                 onPageChange={handlePageChange}
-                currentPage={currentPage}
+                currentPage={validCurrentPage}
                 totalPages={totalPages}
               />
             </div>
