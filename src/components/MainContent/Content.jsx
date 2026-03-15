@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDebounce } from "../../helpers/hooks/useDebounce.js";
 import QuestionItem from "../QuestionItem/QuestionItem";
 import styles from "./content.module.css";
 import Error from "../ErrorModale/index.jsx";
@@ -9,7 +10,10 @@ function Content({ searchValue }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const itemPage = 10;
+  const debouncedSearch = useDebounce(searchValue, 800);
 
   const closeError = () => {
     setError(null);
@@ -20,15 +24,20 @@ function Content({ searchValue }) {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(
-          `https://api.yeatwork.ru/questions/public-questions?page=1&limit=1000`,
-        );
+        const searchParam = debouncedSearch
+          ? `&titleOrDescription=${encodeURIComponent(debouncedSearch)}`
+          : "";
+        const url = `https://api.yeatwork.ru/questions/public-questions?page=${currentPage}&limit=${itemPage}${searchParam}`;
+        const res = await fetch(url);
 
         if (!res.ok) {
           throw new Error(`Ошибка HTTP: ${res.status}`);
         }
         const data = await res.json();
+        console.log(data.data);
+
         setAllQuestions(data.data);
+        setTotalPages(Math.ceil(data.total / itemPage));
       } catch (err) {
         setError(err.message);
         console.error("Ошибка:", err);
@@ -38,27 +47,14 @@ function Content({ searchValue }) {
     }
 
     fetchQuestions();
-  }, []);
+  }, [currentPage, debouncedSearch]);
 
-  const filteredQuestions = allQuestions.filter((q) =>
-    q.title.toLowerCase().includes(searchValue.toLowerCase()),
-  );
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
 
-  const validCurrentPage = searchValue ? 1 : currentPage;
-  const startPage = (validCurrentPage - 1) * itemPage;
-  const paginationQuestions = filteredQuestions.slice(
-    startPage,
-    startPage + itemPage,
-  );
-
-  const totalPages = Math.ceil(filteredQuestions.length / itemPage);
-
-  const handlePageChange = (newPage) => {
-    if (!searchValue) {
-      setCurrentPage(newPage);
-    } else {
-      setCurrentPage(1);
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -75,7 +71,7 @@ function Content({ searchValue }) {
             {loading ? (
               <div className={styles.loading}>Загрузка вопросов...</div>
             ) : (
-              paginationQuestions.map((question) => (
+              allQuestions.map((question) => (
                 <QuestionItem
                   key={question.id}
                   question={question}
@@ -84,18 +80,17 @@ function Content({ searchValue }) {
               ))
             )}
           </div>
-          {!loading && filteredQuestions.length === 0 && (
+          {!loading && allQuestions.length === 0 && (
             <div>По запросу '{searchValue}' ничего не найдено!</div>
           )}
-          {totalPages > 1 && (
-            <div className={styles.pagination}>
-              <Pagination
-                onPageChange={handlePageChange}
-                currentPage={validCurrentPage}
-                totalPages={totalPages}
-              />
-            </div>
-          )}
+
+          <div className={styles.pagination}>
+            <Pagination
+              onPageChange={handlePageChange}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          </div>
         </div>
       </div>
     </>
